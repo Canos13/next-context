@@ -17,16 +17,20 @@ export const TasksProvider = ({children}) => {
         setTasks([...tasks, {title, description, id: uuid()}]);
     }
 
-    const updateTask = (ids, ntask) => {
+    const updateTask = (id, ntask) => {
         setTasks([
-            ...tasks.map((task) => {
-                task.id === ids ? {...task, ...ntask} : task
-            }),
+            ...tasks.map( task => {
+                task.id === id ? {...task, ...ntask} : task
+            })
         ])
     }
 
+    const deleteTask = (id) =>{
+        setTasks([...tasks.filter( task => task.id !== id)])
+    }
+
     return (
-        <TaskContext.Provider value={{tasks, createTask, updateTask}} >
+        <TaskContext.Provider value={{tasks, createTask, updateTask, deleteTask}} >
             {children}
         </TaskContext.Provider>
     )

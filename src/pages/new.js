@@ -25,50 +25,50 @@ const TaskFormPage = () => {
         e.preventDefault();
         if( !query.id ){
             createTask(task.title, task.description);
+            push('/');
         } else {
             updateTask(query.id, task);
         }
-        /* push('/'); */
     }
 
     useEffect(() => {
       if(query.id){
-            const taskFound = tasks.find(({id}) => id === query.id);
-            console.log(taskFound.id);
+            const taskFound = tasks.find( tarea => tarea.id === query.id);
+            console.log(taskFound);
             setTask({title: taskFound.title, description: taskFound.description});
       }
-    }, [query.id])
-    
+    }, [query.id, tasks])
 
     return (
         <Layout>
-            <form onSubmit={handleSubmit}>
-                <h1 className='text-center font-bold mb-5'>{
-                    query.id ? "Actualizar Tarea" : "Nueva Tarea"
-                }</h1>
-                <input 
-                    name='title'
-                    type="text" 
-                    className='bg-gray-800 mb-3 focus:text-gray-100 py-3 px-4 rounded w-full focus:outline-none'
-                    placeholder="Escribe un titulo"
-                    onChange={handleInputChange}
-                    value={task.title} />
-                <br />
-                <textarea 
-                    rows="2"
-                    name='description'
-                    className='bg-gray-800 mb-3 focus:text-gray-100 py-3 px-4 rounded w-full focus:outline-none'
-                    placeholher="Escribe una descripción"
-                    onChange={handleInputChange}
-                    value={task.description}></textarea>
-                <button 
-                    className='bg-green-500 rounded px-4 py-2 disabled:opacity-30 font-bold hover:bg-green-400' 
-                    disabled={!task.title}>
-                    {
-                        query.id ? "Actualizar" : "Guardar"
-                    }
-                </button>
-            </form>
+            <div className='flex justify-center mt-10 items-center h-full'>
+                <form onSubmit={handleSubmit} className="bg-gray-700 rounded p-8 h-2/4">
+                    <h1 className='text-center text-2xl font-bold mb-5'>{
+                        query.id ? "Actualizar Tarea" : "Nueva Tarea"
+                    }</h1>
+                    <input 
+                        name='title'
+                        type="text" 
+                        className='bg-gray-800 mb-3 focus:text-gray-100 py-3 px-4 rounded w-full focus:outline-none'
+                        placeholder="Escribe un titulo"
+                        onChange={handleInputChange}
+                        value={task.title} />
+                    <br />
+                    <textarea 
+                        rows="2"
+                        name='description'
+                        className='bg-gray-800 mb-3 focus:text-gray-100 py-3 px-4 rounded w-full focus:outline-none'
+                        placeholher="Escribe una descripción"
+                        onChange={handleInputChange}
+                        value={task.description}></textarea>
+                    <button 
+                        className='bg-green-500 rounded px-4 py-2 disabled:opacity-30 font-bold hover:bg-green-400' 
+                        disabled={!task.title}>{
+                            query.id ? "Actualizar" : "Guardar"
+                        }
+                    </button>
+                </form>
+            </div>
         </Layout>
     )
 }
