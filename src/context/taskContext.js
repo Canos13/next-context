@@ -10,7 +10,7 @@ export const useTask = () =>{
 export const TasksProvider = ({children}) => {
 
     const [tasks, setTasks] = useState([
-        {id:'1', title: 'firts task', description: 'some des'}
+       
     ])
 
     const createTask = (title, description) =>{
